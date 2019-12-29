@@ -1,0 +1,93 @@
+/*******************************	PROBLEM STATEMENT	*****************************************/
+
+Given an array arr of  size n of positive integers, the task is to sort all the special primes in their relative position (without affecting the position of other elements).
+Special primes are the prime numbers which can be represented as the sum of two other prime numbers.
+
+Input:
+The first line of input contains T denoting the numbers of testcases. T testcases follow. Each testcase contains two lines of input. The first line contains the size of array n. The second line contains the elements of the array.
+
+Output:
+For each testcase, in a newline, print the sorted array using the rules mentioned above.
+
+Constraints:
+1 <= T <= 100
+1 <= n <= 103
+0 <= arri <= 107
+
+Examples:
+Input:
+1
+5
+31 5 2 1 7
+Output:
+5 7 2 1 31
+
+Explanation:
+Testcase1: The special primes are 31(29+2), 5(2+3), 7(5+2). Sort them we get 5 7 31. So the original array becomes 5 7 2 1 31
+
+/***************************************	SOLUTION	*********************************************/
+
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args)
+	 {
+	 
+	    Scanner sc = new Scanner(System.in);
+	    int test = sc.nextInt();
+	    
+	    while(test --> 0){
+	        
+	        int n = sc.nextInt();
+	        int[] arr = new int[n];
+	        
+	        for (int i=0; i<n; i++)
+	            arr[i] = sc.nextInt();
+	           
+	       ArrayList<Integer> specialList = new ArrayList<Integer>(); 
+	       int[] new_arr = new int[n];
+	       
+	       for (int i=0; i<n; i++){
+	           if (isSpecial(arr[i]))
+	                specialList.add(arr[i]);
+	       }
+	       
+	       Collections.sort(specialList);
+	       
+	       //System.out.println(specialList);
+	       //System.out.println(Arrays.toString(new_arr));
+	       
+	       int index = 0;
+	       for (int i=0; i<n; i++){
+	          if (isSpecial(arr[i])){
+	                arr[i] = specialList.get(index);
+	                index++;
+	          }
+	          System.out.print(arr[i] + " ");
+	       }
+	       
+	       System.out.println();  
+	       
+	    }//end for while loop
+	 
+	 }//end main
+	 
+	 public static boolean isSpecial(int n){
+	     if (isPrime(n) && isPrime(n-2))
+	        return true;
+        return false;
+	 }//end isSpecial();
+	 
+	 public static boolean isPrime(int num){
+	     if (num <= 1)
+	        return false;
+	     for (int i=2; i<=Math.sqrt(num); i++){
+	         if (num%i == 0)
+	            return false;
+	     }
+	     return true;
+	 }// end isPrime()
+}

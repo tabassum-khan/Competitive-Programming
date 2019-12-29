@@ -1,0 +1,68 @@
+/*******************************	PROBLEM STATEMENT	*****************************************/
+
+Given an array arr of size N, containing elements, choose any two elements S1 and S2 in the interval [L, R], where 0 <= L <= R <= N-1 such that Ti = (S1 | (S1 & S2)) ^ (S2 & (S2 | S1)) where |, & and ^ are bitwise OR, AND, XOR operators respectively.
+The task is to find the maximum possible value of Ti.
+
+Input:
+The first line of input contains T denoting the number of testcases. T testcases follow. Each testcase contains two lines of input. The first line contains n denoting the size of array. The second line contains elements of the array.
+
+Output:
+For each testcase, in a new line, print the maximum possible value of Ti.
+
+Constraints:
+1 <= T <= 100
+2 <= n <= 104
+0 <= arri <= 107
+
+Examples:
+Input:
+2
+6
+7 9 8 10 12 6
+5
+3 5 4 6 9
+Output:
+15
+15
+
+Explanation:
+Testcase1: Here we have S1 = 7 and S2 = 8. Now, plugging them in the equation, we get 15.
+Testcase2: Here we have S1 = 9 and S2 = 6. Now, plugging them in the equation, we get 15.
+
+
+/***************************************	SOLUTION	*********************************************/
+
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+ {
+	public static void main (String[] args)throws IOException
+	 {
+	   BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    int test = Integer.parseInt(br.readLine());
+	    
+	    while(test --> 0){
+	        int n = Integer.parseInt(br.readLine());
+	        int[] arr = new int[n];
+	        
+	        String str[] = br.readLine().split(" ");
+	        
+	        for (int i=0; i<n; i++)
+	            arr[i] = Integer.parseInt(str[i]);
+	            
+	        long max = Integer.MIN_VALUE;
+	        
+	        for (int i=0; i<n-1; i++){
+	            for(int j=i+1; j<n; j++){
+	                long t = (arr[i] ^ arr[j]);
+	                if (t > max)
+	                    max = t;
+	            }
+	        }//ending external for loop
+	        
+	        System.out.println(max);
+	    }//end of while loop
+	 }
+}
